@@ -1,0 +1,25 @@
+#ti {
+
+}
+.form-control {
+    text-align: center;
+    width: 100%;
+}
+.website-footer{
+    width: 100%;
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    line-height: 30px;
+
+
+}
+body{
+    background-color: #F7F7F9;
+}
+.btn {
+    margin-top: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+}

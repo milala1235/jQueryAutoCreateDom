@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Milala妙妙屋</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/min.css">
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        var t = 1;
+
+         function on() {
+             for (var i = 1; i <= t; i++){
+            var f_score = ("first_score1");
+            var f_time = ('first_time1');
+            var y_score = ('you_score'+ i);
+            var y_time = ('you_time'+ i);
+
+            var first_score = $("#"+ f_score+ " :input").val();
+            var first_time = $("#"+ f_time+ " :input").val();
+            var you_score = $("#"+ y_score+ " :input").val();
+            var you_time = $("#"+ y_time+ " :input").val();
+
+            var final_score = you_score/first_score*85;
+            var final_time = you_time/first_time*15;
+            show_result(final_score,final_time, i);
+             }
+         }
+        function reload() {
+            location.reload([true])
+        }
+        function add() {
+             var temp = 1;
+            t++;
+            var you_score = 'you_score'+ t;
+            var you_time = 'you_time'+ t;
+
+            $('#item1').clone(true).attr('id', 'new_item'+temp).appendTo($('#ki'));
+            $('#new_item1 p').text('请输入第'+ t+'个人的加权平均成绩:');
+            temp += 1;
+            $('#you_score1').clone(true).attr('id', 'new_item'+temp).appendTo($('#ki'));
+            $('#new_item2').attr('id', you_score);
+            temp += 1;
+            $('#item3').clone(true).attr('id', 'new_item'+temp).appendTo($('#ki'));
+            $('#new_item3 p').text('请输入第'+ t+'个人的学时:');
+            temp += 1;
+            $('#you_time1').clone(true).attr('id', 'new_item'+temp).appendTo($('#ki'));
+            $('#new_item4').attr('id', you_time);
+            /*$('#ki').append($new_row);
+            $('#ki').append($new_col_1);
+            $('#ki').append($new_col_2);
+            $('#col_2').append($new_p1);*/
+
+        }
+        function show_result(standard_score, comprehensive_score,i) {
+
+            var result_standard_title = ('result_standard_title'+ i);
+            var result_standard_input = ('result_standard_input'+ i);
+            var result_comprehensive_title = ('result_comprehensive_title'+ i);
+            var result_comprehensive_input = ('result_comprehensive_input'+ i);
+            var result_score_title = ('result_score_title'+ i);
+            var result_score_input = ('result_score_input'+ i);
+            var col = "<div class='col-xs-6 col-sm-4'></div>";
+
+            //你的学业成绩标准分: title
+            if (i < 2){
+                $('#item_button').after($('<div>', {"class": "row", "id": result_standard_title}));
+            } else {
+                var k = i-1;
+                var pre_item = 'result_score_input'+ k;
+                $('#'+ pre_item).after($('<div>', {"class": "row", "id": result_standard_title}));
+            }
+            var selector_result_standard_title = $("#"+ result_standard_title);
+            var result_standard_title_content = "<div class='col-xs-6 col-sm-4'><p class='text-center'>你的学业成绩标准分:</p></div>";
+            selector_result_standard_title.append(col,result_standard_title_content);
+            if (i > 1){
+                $('#'+ result_standard_title+ ' p').text('第'+ i+ '个人的学业成绩标准分:');
+            }
+
+            // 你的学业成绩标准分: value
+            selector_result_standard_title.after($('<div>', {"class": "row", "id": result_standard_input}));
+            var selector_result_standard_input = $("#"+ result_standard_input);
+            var result_comprehensive_title_content = "<div class='col-xs-6 col-sm-4'><input class='form-control'  disabled></div>";
+            selector_result_standard_input.append(col,result_comprehensive_title_content);
+            $("#"+ result_standard_input+ " :input").val(standard_score); //显示学业成绩标准分
+
+            // 你的综合测评成绩: title
+            selector_result_standard_input.after($('<div>', {"class": "row", "id": result_comprehensive_title}));
+            var result_standard_input_content = "<div class='col-xs-6 col-sm-4'><p class='text-center'>你的综合测评成绩:</p></div>";
+            var selector_result_comprehensive_title = $("#"+ result_comprehensive_title);
+            selector_result_comprehensive_title.append(col,result_standard_input_content);
+            if (i > 1){
+                $('#'+ result_comprehensive_title+ ' p').text('第'+ i+ '个人的综合测评成绩:');
+            }
+
+            //你的综合测评成绩: value
+            selector_result_comprehensive_title.after($('<div>', {"class": "row", "id": result_comprehensive_input}));
+            var selector_result_comprehensive_input = $("#"+ result_comprehensive_input);
+            var result_comprehensive_input_content = "<div class='col-xs-6 col-sm-4'><input class='form-control'  disabled></div>";
+            selector_result_comprehensive_input.append(col,result_comprehensive_input_content);
+            $("#"+ result_comprehensive_input+ " :input").val(comprehensive_score);
+            
+            //总成绩: title
+            selector_result_comprehensive_input.after($('<div>', {"class": "row", "id": result_score_title}));
+            var selector_result_score_title = $("#"+ result_score_title);
+            var result_score_title_content = "<div class='col-xs-6 col-sm-4'><p class='text-center'>你的总成绩:</p></div>";
+            selector_result_score_title.append(col,result_score_title_content);
+            if (i > 1){
+                $('#'+ result_score_title+ ' p').text('第'+ i+ '个人的总成绩');
+            }
+
+            //总成绩: value
+            selector_result_score_title.after($('<div>', {"class": "row", "id": result_score_input}));
+            var selector_result_score_input = $("#"+ result_score_input);
+            var result_score_input_content = "<div class='col-xs-6 col-sm-4'><input class='form-control'  disabled></div>";
+            selector_result_score_input.append(col,result_score_input_content);
+            $("#"+ result_score_input+ " :input").val(standard_score+ comprehensive_score );
+
+
+        }
+
+
+
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4"><h1 id="ti" class="text-center">Milala妙妙屋</h1></div>
+        <!-- Optional: clear the XS cols if their content doesn't match in height -->
+        <div class="clearfix visible-xs-block"></div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4">
+            <p class="text-center">请输入第一的加权平均成绩:</p>
+        </div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row" id="first_score1">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4"><input class="form-control" placeholder="score" ></div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+
+        <div class="col-xs-6 col-sm-4">
+            <p class="text-center">请输入第一的学时:</p>
+        </div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row" id="first_time1">
+    <div class="col-xs-6 col-sm-4"></div>
+    <div class="col-xs-6 col-sm-4"><input class="form-control" placeholder="class hour" ></div>
+     <div class="col-xs-6 col-sm-4"></div>
+</div>
+    <div class="row" id="item1">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4">
+            <p class="text-center">请输入你的加权平均成绩:</p>
+        </div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row" id="you_score1">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4"><input class="form-control" placeholder="score" ></div>
+    </div>
+    <div class="row" id="item3">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4">
+            <p class="text-center">请输入你的学时:</p>
+        </div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row" id="you_time1">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4"><input class="form-control" placeholder="class hour" ></div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div id="ki"></div>
+<!-- 按钮 -->
+    </div>
+    <div class="row" id="item_button">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4">
+            <div style="text-align:center">
+                <button class="btn btn-success" id="sub" onclick="on()">Cal</button>
+                <button class="btn btn-success" id="clear" onclick="reload()">Clear</button>
+                <button class="btn btn-success" id="add" onclick="add()">Add</button>
+               <!-- <button class="btn btn-success" onclick="show_result(0,1)">test</button> -->
+             </div>
+        </div>
+        <!-- Optional: clear the XS cols if their content doesn't match in height -->
+        <div class="clearfix visible-xs-block"></div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <!-- 显示成绩 -->
+   <!-- <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4">
+            <p class="text-center">你的学业成绩标准分:</p>
+        </div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4"><input class="form-control" id="final_score" disabled></div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4">
+            <p class="text-center">你的综合测评成绩:</p>
+        </div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4"><input class="form-control" id="final_time" disabled></div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4">
+            <p class="text-center">你的总成绩:</p>
+        </div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4"><input class="form-control" id="total_score" disabled></div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-4"></div>
+        <div class="col-xs-6 col-sm-4" id="new"></div>
+        <div class="col-xs-6 col-sm-4"></div>
+    </div> -->
+    <div class="row">
+        <div class="website-footer">Milala 's Husband Products</div>
+    </div>
+</div>
+</body>
+</html>
